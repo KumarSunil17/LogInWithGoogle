@@ -52,7 +52,14 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-            mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
+        mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+
         mCallbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.login_facebook);
         loginButton.setReadPermissions("email", "public_profile");
@@ -73,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         mAuthListener = new FirebaseAuth.AuthStateListener(){
-
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
