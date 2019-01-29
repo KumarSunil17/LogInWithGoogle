@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -48,17 +47,24 @@ public class MainActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(MainActivity.this, gso);
 
-        Picasso.with(MainActivity.this).load(mUser.getPhotoUrl()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.no_profile)
-                .into(userDP, new Callback() {
-                    @Override
-                    public void onSuccess() {
+//        Picasso.with(MainActivity.this).load(mUser.getPhotoUrl()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.no_profile)
+//                .into(userDP, new Callback() {
+//                    @Override
+//                    public void onSuccess() {
+//
+//                    }
+//                    @Override
+//                    public void onError() {
+//                        Picasso.with(MainActivity.this).load(mUser.getPhotoUrl()).placeholder(R.drawable.no_profile).into(userDP);
+//                    }
+//                });
 
-                    }
-                    @Override
-                    public void onError() {
-                        Picasso.with(MainActivity.this).load(mUser.getPhotoUrl()).placeholder(R.drawable.no_profile).into(userDP);
-                    }
-                });
+        Picasso.get()
+                .load(mUser.getPhotoUrl())
+                .placeholder(R.drawable.no_profile)
+                .error(R.drawable.no_profile)
+                .into(userDP);
+
         userName.setText(mUser.getDisplayName());
         userEmail.setText(mUser.getEmail());
         userUserID.setText(mUser.getUid());
